@@ -1,0 +1,29 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Strings;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.ExperienceSection)Model.Content;
+
+    var experienceText = content.Value<IHtmlEncodedString>("experienceText");
+    var experienceImage = content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("experienceImage");
+}
+
+<section class="bg-neutral py-[6rem]">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            @if (experienceImage != null)
+            {
+                <div class="flex flex-col items-center md:items-start">
+                    <img src="@experienceImage.Url()"
+                         alt="@experienceImage.Name"
+                         class="w-full max-w-[480px] h-auto object-cover rounded-md shadow-md" />
+                    <p class="mt-2 text-body-text">Tina Fox - CEO & Founder at Onatrix</p>
+                </div>
+            }
+
+            <div class="rte text-body-text leading-relaxed">
+                @experienceText
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,83 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.ContactSection)Model.Content;
+    var settings = Model.Settings as ContentModels.ContactSettings;
+
+
+
+    var sectionColor = settings?.ContactBackground?.Color ?? "#??????";
+    var rootContent = Umbraco.ContentAtRoot();
+    var siteSettings = rootContent.OfType<SiteSettings>().FirstOrDefault();
+    var contactAddress = siteSettings?.ContactAddress ?? "Ingen address angiven";
+    var emailAddress = siteSettings?.ContactEmail ?? "Ingen Email angiven";
+    var phoneNumber = siteSettings?.ContactPhone ?? "Ingen telefon angiven";
+}
+
+
+<section class="py-[6rem]" style="background-color:@sectionColor">
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            @if (content.ContactImage != null)
+            {
+                <div class="w-full lg:w-1/2 flex justify-center">
+                    <img src="@content.ContactImage.Url()"
+                         alt="ContactImage"
+                         class="max-h-[360px] object-cover rounded-xl shadow-lg" />
+                </div>
+            }
+
+            <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                <span class="text-[2.2rem] leading-tight font-semibold text-primary max-w-[50%]">
+                    @content.ContactTitle
+                </span>
+
+                <div class="space-y-4 text-[0.95rem] text-body-text">
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-full border border-border-400 flex items-center justify-center text-[0.75rem] text-primary mt-[2px]">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+                        <div>
+                            <h4 class="text-[0.7rem] uppercase tracking-[0.14em] text-body-text-100 mb-1">
+                                Office location
+                            </h4>
+                            <p class="text-[0.9rem]">
+                                @contactAddress
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-full border border-border-400 flex items-center justify-center text-[0.75rem] text-primary mt-[2px]">
+                            <i class="fa-solid fa-phone"></i>
+                        </span>
+                        <div>
+                            <h4 class="text-[0.7rem] uppercase tracking-[0.14em] text-body-text-100 mb-1">
+                                Phone number
+                            </h4>
+                            <a href="tel:@phoneNumber"
+                               class="text-[0.9rem] text-body-text no-underline hover:text-primary">
+                                @phoneNumber
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-full border border-border-400 flex items-center justify-center text-[0.75rem] text-primary mt-[2px]">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <div>
+                            <h4 class="text-[0.7rem] uppercase tracking-[0.14em] text-body-text-100 mb-1">
+                                E-mail address
+                            </h4>
+                            <a href="mailto:@emailAddress"
+                               class="text-[0.9rem] text-body-text no-underline hover:text-primary">
+                                @emailAddress
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

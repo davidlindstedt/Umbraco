@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Strings;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.TrustSection)Model.Content;
+    var trustText = content.Value<IHtmlEncodedString>("trustText");
+    var trustImage = content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("trustImage");
+}
+
+<section class="relative bg-neutral py-[6rem] overflow-hidden">
+    <div class="container mx-auto px-4 text-center">
+        @if (trustText != null && !string.IsNullOrWhiteSpace(trustText.ToString()))
+        {
+            <div class="rte max-w-3xl mx-auto text-body-text text-[0.95rem] leading-relaxed">
+                @trustText
+            </div>
+        }
+
+        <a href="#"
+           class="inline-flex items-center justify-center bg-primary text-accent px-6 py-3 rounded-md font-semibold no-underline hover:opacity-90 transition mt-6">
+            Read our story
+        </a>
+
+        @if (trustImage != null)
+        {
+            <div class="relative">
+                <img src="@trustImage.Url()"
+                     alt="@trustImage.Name"
+                     class="mx-auto w-full max-w-[1200px] object-contain select-none" />
+            </div>
+        }
+    </div>
+</section>

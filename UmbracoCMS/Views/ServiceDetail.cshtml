@@ -1,0 +1,45 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ServiceDetail>
+@{
+	Layout = "mainLayout.cshtml";
+}
+
+<partial name="Partials/Layout/_PageHeader" model="(IPageHeader)Model" />
+
+<section class="">
+    <div class="py-16 max-w-7xl mx-auto px-4">
+        <div class="flex flex-row justify-between">
+            <aside class="w-3/12 flex flex-col gap-10">
+                @Html.GetBlockListHtml(Model.ServiceDetailAsides)
+                <div class="rounded-md p-6 shadow-md relative overflow-hidden bg-primary">
+                    <img src="/images/Support-Bg.svg" alt="" class="absolute right-0 bottom-0 w-[130px] pointer-events-none select-none" />
+
+                    <div class="relative z-10">
+                        <h3 class="text-lg text-accent font-semibold mb-1">How can we help you?</h3>
+                        <p class="text-sm text-neutral opacity-80 mb-4">online support 24/7, we are here to help you</p>
+
+                        <div class="relative">
+                            <input type="email"
+                                   placeholder="E-mail address"
+                                   class="w-full p-3 pr-10 rounded bg-neutral text-gray-700 italic text-sm border border-gray-200 focus:ring-2 focus:ring-primary focus:outline-none" />
+                            <span class="pointer-events-none absolute right-3 inset-y-0 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <div class="block w-px bg-border-gray"></div>
+            <div class="w-8/12 flex flex-col gap-2">
+                <div class="rte">@Html.Raw(Model.ServiceDetailBody)</div>
+            </div>
+        </div>
+    </div>
+    @if (Model.HasValue("extraContactSection"))
+    {
+        @Html.GetBlockListHtml(Model, "extraContactSection")
+    }
+</section>
+

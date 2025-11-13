@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Strings;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.SwebankSection)Model.Content;
+
+    var swebankLabel = content.Value<string>("swebankLabel");
+    var swebankTitle = content.Value<IHtmlEncodedString>("swebankTitle");
+    var swebankImage = content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("swebankImage");
+}
+
+<section class="bg-white-100">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 bg-white-100 rounded-md overflow-hidden">
+            <div class="order-2 md:order-1 p-8 sm:p-10 lg:p-14">
+                @if (!string.IsNullOrWhiteSpace(swebankLabel))
+                {
+                    <div class="mb-4 text-xs tracking-[0.18em] uppercase text-secondary">
+                        @swebankLabel
+                    </div>
+                }
+
+                <div class="rte space-y-4">
+                    @swebankTitle
+                </div>
+            </div>
+
+            @if (swebankImage != null)
+            {
+                <div class="order-1 md:order-2">
+                    <img src="@swebankImage.Url()"
+                         alt="@swebankImage.Name"
+                         class="w-full h-full object-cover min-h-[260px]" />
+                </div>
+            }
+        </div>
+    </div>
+</section>

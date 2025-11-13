@@ -1,0 +1,18 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Strings;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.FooterSection)Model.Content;
+    var footerContent = content.Value<IHtmlEncodedString>("footerContent");
+}
+
+<footer class="bg-dark text-white py-4 text-center">
+    <div class="container mx-auto px-4">
+        @if (footerContent != null)
+        {
+            <div class="text-sm opacity-80">
+                @footerContent
+            </div>
+        }
+    </div>
+</footer>

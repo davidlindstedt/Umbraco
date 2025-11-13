@@ -1,0 +1,55 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Strings;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.SuccessSection)Model.Content;
+
+    var successLabel = content.Value<string>("successLabel");
+    var successTitle = content.Value<string>("successTitle");
+
+    var successCustomers = content.Value<IHtmlEncodedString>("successCustomers"); // RTE
+    var successProjects = content.Value<IHtmlEncodedString>("successProjects");  // RTE
+    var successBranches = content.Value<IHtmlEncodedString>("successBranches");  // RTE
+
+    var successImage = content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("successImage"); // fotot
+}
+
+<section class="relative bg-primary pt-[5.5rem] pb-[8rem] overflow-visible">
+    <!-- Prickig kartbakgrund -->
+    <div class="pointer-events-none absolute inset-x-0 top-25 h-[460px] md:h-[520px] opacity-100 bg-[url('/images/Green-dot-map.svg')] bg-center bg-no-repeat bg-contain"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <!-- Label + Title -->
+        <div class="max-w-4xl mx-auto text-center">
+            @if (!string.IsNullOrWhiteSpace(successLabel))
+            {
+                <div class="mb-3 text-xs tracking-[0.18em] uppercase text-white/70">
+                    @successLabel
+                </div>
+            }
+            @if (!string.IsNullOrWhiteSpace(successTitle))
+            {
+                <h2 class="text-neutral text-3xl sm:text-4xl font-semibold">
+                    @successTitle
+                </h2>
+            }
+        </div>
+
+        
+        <div class="max-w-6xl mx-auto mt-10 mb-50 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+            <div class="space-y-2">@successCustomers</div>
+            <div class="space-y-2">@successProjects</div>
+            <div class="space-y-2">@successBranches</div>
+        </div>
+    </div>
+
+    <!-- Bild som hänger utanför sektionen -->
+    @if (successImage != null)
+    {
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-[min(980px,82%)] mt-10">
+            <img src="@successImage.Url()"
+                 alt="@successImage.Name"
+                 class="w-full h-auto object-cover rounded-sm shadow-2xl ring-1 ring-black/5" />
+        </div>
+    }
+</section>
